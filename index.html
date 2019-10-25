@@ -14,12 +14,12 @@
 </head>
 
 <body>
-     <!-- header? -->
-     <h1 class="logo">BeerHunter</h1>
+    <!-- header? -->
+    <h1 class="logo">BeerHunter</h1>
 
     <div class="bg-color"></div>
-   
-   
+
+
 
 
     <!-- section -->
@@ -29,7 +29,7 @@
     </div>
     <div class="bg-text">
         <!-- <h1>Looking for a place to drink tonight?</h1> -->
-         <p class="p-text tracking-in-expand">Let's Drink.</p>
+        <p class="p-text tracking-in-expand">Let's Drink.</p>
     </div>
 
     <div class="beerContainer">
@@ -81,14 +81,14 @@
             <div class="container">
                 <h4><b>Plan the ultimate pub crawl</b></h4>
                 <p>Create an agenda with the start time. Send it to your friends</p>
-            </div>   
-        </div> 
+            </div>
+        </div>
         <div class="column card">
-                <i class="fas fa-map-marked fa-3x iconStyle"></i>
-                <div class="container">
-                    <h4><b>Plan a trip</b></h4>
-                    <p>Tour a brewery while on vacation.</p>
-                </div>
+            <i class="fas fa-map-marked fa-3x iconStyle"></i>
+            <div class="container">
+                <h4><b>Plan a trip</b></h4>
+                <p>Tour a brewery while on vacation.</p>
+            </div>
         </div>
 
       
@@ -114,7 +114,7 @@
     </div>
 
 
-     <!-- card/inner div -->
+    <!-- card/inner div -->
     <div class="container-fluid searchBox secondary-bg-color">
 
 
@@ -144,29 +144,44 @@
             <input type="checkbox">Food-Service</input>
             <input type="checkbox">Tours</input>
         </div>
-        
+
 
         <!-- search parameter checkboxes -->
-       
+
 
         <!-- submit button -->
         <button id="searchBtn">Submit</button>
 
     </div>
 
+    <div class="container-wrapper">
+        <div class="row d-flex justify-content-center">
 
-    <div>
-            <input id="search" type="text" placeholder="Search..." />
-          </div>
-          <div id="map" style="height: 500px; width: 500px;"></div>
+            <div class="col-md-6">
+                <!-- left side map -->
+                <div class="container-left">
+                    <div>
+                        <input id="search" type="text" placeholder="Search..." />
+                    </div>
+                    <div id="map" style="height: 500px; width: 500px;"></div>
+                </div>
+            </div>
 
-  
+            <div class="col-md-6">
+                <!-- right side results -->
+                <div class="container-right border" id="resultBrew"></div>
+            </div>
+
+        </div>
+    </div>
+
     <!-- footer -->
     <footer></footer>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="app.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoHSR7pT6DfeGGSXE_ONum2R33Q10A_vU&callback=initMap&libraries=places"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoHSR7pT6DfeGGSXE_ONum2R33Q10A_vU&callback=initMap&libraries=places"></script>
 
 </body>
 
