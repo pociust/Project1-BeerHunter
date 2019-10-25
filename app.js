@@ -20,7 +20,32 @@ function searchBrewery() {
     method: "GET"
   }).then(function(response) {
     console.log(response);
+    console.log("response 0", response[0]);
+    renderList(response);
   });
+}
+
+function renderList(response) {
+  // get cream filling
+  for (i = 0; i < 5; i++) {
+    var brewDiv = $(
+      `<div class="cardResults">
+    <h3>
+        ${response[i].name}
+    </h3>
+    <div>
+        ${response[i].street}
+    </div>
+    <div>
+        ${response[i].phone}
+    </div>
+    <div>
+        ${response[i].website_url}
+    </div>
+    </div>`
+    );
+    $("#resultBrew").append(brewDiv);
+  }
 }
 
 function initMap() {
