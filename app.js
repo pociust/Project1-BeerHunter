@@ -28,6 +28,12 @@ function searchBrewery() {
 function renderList(response) {
   // get cream filling
   for (i = 0; i < 5; i++) {
+    if (response[i].phone === "") {
+      response[i].phone = "info not avaiable yet";
+    }
+    if (response[i].website_url === "") {
+      response[i].website_url = "no website";
+    }
     var brewDiv = $(
       `<div class="cardResults">
     <h3>
@@ -44,6 +50,8 @@ function renderList(response) {
     </div>
     </div>`
     );
+
+    console.log("phonw", response[i].phone);
     $("#resultBrew").append(brewDiv);
   }
 }
@@ -58,7 +66,7 @@ function initMap() {
   //intialize id
   map = new google.maps.Map(document.getElementById("map"), options);
 
-  geocoder.geocode({ address: "Paris" }, function(results, status) {
+  geocoder.geocode({ address: "Chicago" }, function(results, status) {
     if (status === "OK") {
       map.setCenter(results[0].geometry.location);
     } else {
