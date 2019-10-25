@@ -1,9 +1,20 @@
 // google maps api key AIzaSyCoHSR7pT6DfeGGSXE_ONum2R33Q10A_vU || key=AIzaSyCoHSR7pT6DfeGGSXE_ONum2R33Q10A_vU
 var map;
+var city;
+var state;
 
 function searchBrewery() {
-  var queryUrl = "https://api.openbrewerydb.org/breweries?by_city=chicago";
+  city = $("#cityInput").val();
+  state = $("#stateInput").val();
+  console.log("state name" + state);
 
+  var queryUrl =
+    "https://api.openbrewerydb.org/breweries?by_city=" +
+    city +
+    "&by_state=" +
+    state;
+
+  console.log("quryURL" + queryUrl);
   $.ajax({
     url: queryUrl,
     method: "GET"
@@ -11,7 +22,6 @@ function searchBrewery() {
     console.log(response);
   });
 }
-searchBrewery();
 
 function initMap() {
   var geocoder = new google.maps.Geocoder();
@@ -83,6 +93,10 @@ function initMap() {
     map.fitBounds(bounds);
   });
 }
+
+$("#searchBtn").on("click", function() {
+  searchBrewery();
+});
 
 //init card
 //show card with imputs city state
