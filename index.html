@@ -132,20 +132,20 @@
 
 
         <!-- text input -->
-        <div>
-            <input id="cityInput" type="text" placeholder="City"></input>
-            <input id="stateInput" type="text" placeholder="State"></input>
-        </div>
-        <div>
-            <input class="tag" type="checkbox">Patio</input>
-            <input class="tag" type="checkbox">Dog-Friendly</input>
-            <input class="tag" type="checkbox">Food-Service</input>
-            <input class="tag" type="checkbox">Tours</input>
-        </div>
-
-
-        <!-- search parameter checkboxes -->
-
+        <form id="target"> 
+            <div>
+                <input id="cityInput" type="text" placeholder="City"></input>
+                <input id="stateInput" type="text" placeholder="State"></input>
+            </div>
+            
+            <!-- search parameter checkboxes -->
+            <div>
+                <input id="patio" class="tag" type="checkbox">Patio</input>
+                <input id="dog" class="tag" type="checkbox">Dog-Friendly</input>
+                <input id="food" class="tag" type="checkbox">Food-Service</input>
+                <input id="tours" class="tag" type="checkbox">Tours</input>
+            </div>
+        </form>  
 
         <!-- submit button -->
         <button class="btn btn-dark" id="searchBtn">Submit</button>
