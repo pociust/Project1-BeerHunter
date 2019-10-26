@@ -1,5 +1,4 @@
-// google maps api key AIzaSyCoHSR7pT6DfeGGSXE_ONum2R33Q10A_vU || key=AIzaSyCoHSR7pT6DfeGGSXE_ONum2R33Q10A_vU
-var map;
+// google maps api key AIzaSyBZrGx2lk-aBzNw1Y5aR-f4DuzZP_a1v2g || key=AIzaSyBZrGx2lk-aBzNw1Y5aR-f4DuzZP_a1v2g
 var city;
 var state;
 
