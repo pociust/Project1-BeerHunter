@@ -1,7 +1,7 @@
 // google maps api key AIzaSyBZrGx2lk-aBzNw1Y5aR-f4DuzZP_a1v2g || key=AIzaSyBZrGx2lk-aBzNw1Y5aR-f4DuzZP_a1v2g
-var city;
-var state;
-
+var city = "chicago";
+// var state =
+//initMap(city);
 function searchBrewery() {
   city = $("#cityInput").val();
   state = $("#stateInput").val();
@@ -21,6 +21,8 @@ function searchBrewery() {
     console.log(response);
     console.log("response 0", response[0]);
     renderList(response);
+
+    initMap(city);
   });
 }
 
@@ -50,27 +52,26 @@ function renderList(response) {
     </div>`
     );
 
-    console.log("phonw", response[i].phone);
     $("#resultBrew").append(brewDiv);
   }
 }
 
-function initMap() {
+function initMap(city) {
   var geocoder = new google.maps.Geocoder();
 
   var options = {
-    center: { lat: 0, lng: 0 }, //{ lat: 41.8781, lng: -87.6298 },
+    center: /* { lat: 0, lng: 0 },*/ { lat: 41.8781, lng: -87.6298 },
     zoom: 14
   };
   //intialize id
   map = new google.maps.Map(document.getElementById("map"), options);
 
-  geocoder.geocode({ address: "Chicago" }, function(results, status) {
+  geocoder.geocode({ address: `${city}` }, function(results, status) {
     if (status === "OK") {
       map.setCenter(results[0].geometry.location);
-    } else {
-      alert("Geocode was not successful for the following reason: " + status);
-    }
+    } //else {
+    //alert("Geocode was not successful for the following reason: " + status);
+    //}
   });
 
   var input = document.getElementById("search");
@@ -127,21 +128,24 @@ function initMap() {
 }
 
 $("#startBtn").click(function() {
-    $('html,body').animate({
-        scrollTop: $(".searchBox").offset().top},
-        'slow');
-  });
+  $("html,body").animate(
+    {
+      scrollTop: $(".searchBox").offset().top
+    },
+    "slow"
+  );
+});
 
-  $("form").submit(function(event) {
-    event.preventDefault();
-    searchBrewery();
-  });
+$("form").submit(function(event) {
+  event.preventDefault();
+  searchBrewery();
+});
 
 $("#searchBtn").on("click", function() {
   searchBrewery();
 });
 
-
+initMap("chicago");
 //init card
 //show card with imputs city state
 //drop for number of results
