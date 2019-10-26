@@ -1,5 +1,4 @@
-// google maps api key AIzaSyCoHSR7pT6DfeGGSXE_ONum2R33Q10A_vU || key=AIzaSyCoHSR7pT6DfeGGSXE_ONum2R33Q10A_vU
-var map;
+// google maps api key AIzaSyBZrGx2lk-aBzNw1Y5aR-f4DuzZP_a1v2g || key=AIzaSyBZrGx2lk-aBzNw1Y5aR-f4DuzZP_a1v2g
 var city;
 var state;
 
@@ -20,7 +19,40 @@ function searchBrewery() {
     method: "GET"
   }).then(function(response) {
     console.log(response);
+    console.log("response 0", response[0]);
+    renderList(response);
   });
+}
+
+function renderList(response) {
+  // get cream filling
+  for (i = 0; i < 5; i++) {
+    if (response[i].phone === "") {
+      response[i].phone = "info not avaiable yet";
+    }
+    if (response[i].website_url === "") {
+      response[i].website_url = "no website";
+    }
+    var brewDiv = $(
+      `<div class="cardResults">
+    <h3>
+        ${response[i].name}
+    </h3>
+    <div>
+        ${response[i].street}
+    </div>
+    <div>
+        ${response[i].phone}
+    </div>
+    <div>
+        ${response[i].website_url}
+    </div>
+    </div>`
+    );
+
+    console.log("phonw", response[i].phone);
+    $("#resultBrew").append(brewDiv);
+  }
 }
 
 function initMap() {
@@ -33,7 +65,7 @@ function initMap() {
   //intialize id
   map = new google.maps.Map(document.getElementById("map"), options);
 
-  geocoder.geocode({ address: "Paris" }, function(results, status) {
+  geocoder.geocode({ address: "Chicago" }, function(results, status) {
     if (status === "OK") {
       map.setCenter(results[0].geometry.location);
     } else {
