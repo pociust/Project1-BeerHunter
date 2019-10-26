@@ -2,16 +2,34 @@
 var city = "chicago";
 // var state =
 //initMap(city);
+
+let queryPatio = "";
+let queryDog = "";
+let queryFood = "";
+let queryTours = "";
+
 function searchBrewery() {
   city = $("#cityInput").val();
-  state = $("#stateInput").val();
-  console.log("state name" + state);
+  state = $("#stateInput").val() || "";
 
-  var queryUrl =
-    "https://api.openbrewerydb.org/breweries?by_city=" +
-    city +
-    "&by_state=" +
-    state;
+  if ($("#patio").prop("checked")) {
+    queryPatio = "&by_tag=patio";
+  }
+
+  if ($("#dog").prop("checked")) {
+    queryDog = "&by_tag=dog";
+    console.log("dog = checked");
+  }
+
+  if ($("#food").prop("checked")) {
+    queryDog = "&by_tag=food";
+  }
+
+  if ($("#tours").prop("checked")) {
+    queryDog = "&by_tag=tours";
+  }
+
+  var queryUrl = `https://api.openbrewerydb.org/breweries?by_city=${city}&by_state=${state}${queryDog}${queryPatio}${queryFood}${queryTours}`;
 
   console.log("quryURL" + queryUrl);
   $.ajax({
