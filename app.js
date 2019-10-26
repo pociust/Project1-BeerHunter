@@ -130,6 +130,11 @@ $("#searchBtn").on("click", function() {
   searchBrewery();
 });
 
+$("form").submit(function(event) {
+  event.preventDefault();
+  searchBrewery();
+});
+
 //init card
 //show card with imputs city state
 //drop for number of results
