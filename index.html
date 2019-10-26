@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/0270abbd8e.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BeerHunter</title>
 </head>
 
@@ -79,34 +80,41 @@
     <div class='pulse-3'></div>
 
 
-    <div class="intro">What's BeerHunter?</div>
-    <div class="row">
-        <div class="column-lg-4 card">
-            <i class="fas fa-beer fa-3x iconStyle"></i>
-            <div class="container">
-                <h4><b>Find a Brewery</b></h4>
-                <p>Search your local area for a top-notch brewery or maybe discover a micro brewery.</p>
+    <div class="container">
+        <!-- row one -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="intro">What's BeerHunter?</div>
             </div>
         </div>
-        <div class="column-sm-4 card">
-            <i class="fas fa-calendar fa-3x iconStyle"></i>
-            <div class="container">
-                <h4><b>Plan the ultimate pub crawl</b></h4>
-                <p>Create an agenda with the start time. Send it to your friends</p>
+
+        <!-- row two -->
+        <div class="row d-flex justify-content-between">
+            <div class="col-md-3 card">
+                <i class="fas fa-beer fa-3x iconStyle"></i>
+                <div class="container">
+                    <h4><b>Find a Brewery</b></h4>
+                    <p>Search your local area for a top-notch brewery or maybe discover a micro brewery.</p>
+                </div>
+            </div>
+            <div class="col-md-3 card">
+                <i class="fas fa-calendar fa-3x iconStyle"></i>
+                <div class="container">
+                    <h4><b>Plan the ultimate pub crawl</b></h4>
+                    <p>Create an agenda with the start time. Send it to your friends</p>
+
+                </div>
+            </div>
+            <div class="col-md-3 card">
+                <i class="fas fa-map-marked fa-3x iconStyle"></i>
+                <div class="container">
+                    <h4><b>Plan a trip</b></h4>
+                    <p>Tour a brewery while on vacation. Actually, plan your vacation around your brewrey tours. </p>
+                </div>
 
             </div>
         </div>
-        <div class="column-sm-4 card">
-            <i class="fas fa-map-marked fa-3x iconStyle"></i>
-            <div class="container">
-                <h4><b>Plan a trip</b></h4>
-                <p>Tour a brewery while on vacation. Actually, plan your vacation around your brewrey tours. </p>
-            </div>
-
-        </div>
-
     </div>
-
 
     <!-- card/inner div -->
     <div class="container-fluid searchBox secondary-bg-color">
@@ -117,7 +125,7 @@
         </div>
 
         <!-- amt results dropdown menu -->
-        
+
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -132,13 +140,13 @@
         <br>
 
         <!-- text input -->
-        <form id="target"> 
+        <form id="target">
             <div>
                 <input id="cityInput" type="text" placeholder="City"></input>
                 <input id="stateInput" type="text" placeholder="State"></input>
-                <input type="submit" style="display: none"/>
+                <input type="submit" style="display: none" />
             </div>
-            
+
             <!-- search parameter checkboxes -->
             <div>
                 <input id="patio" class="tag" type="checkbox">Patio</input>
@@ -146,10 +154,10 @@
                 <input id="food" class="tag" type="checkbox">Food-Service</input>
                 <input id="tours" class="tag" type="checkbox">Tours</input>
             </div>
-        </form>    
+        </form>
         <!-- submit button -->
-        <button class= "btn btn-dark" id="searchBtn" type="submit">Submit</button>
-        
+        <button class="btn btn-dark" id="searchBtn" type="submit">Submit</button>
+
     </div>
 
     <div class="container-wrapper">
@@ -179,8 +187,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="app.js"></script>
     <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZrGx2lk-aBzNw1Y5aR-f4DuzZP_a1v2g&callback=initMap&libraries=places"></script>
-
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZrGx2lk-aBzNw1Y5aR-f4DuzZP_a1v2g&callback=initMap&libraries=places"
+        async defer></script>
 </body>
 
 </html>
