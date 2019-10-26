@@ -59,12 +59,12 @@ html {
   font-weight: bold;
   position: absolute;
   top: 40%;
-  left: 30%;
+  left: 40%;
   transform: translate(-50%, -50%);
   z-index: 2;
   width: 70%;
   padding: 20px;
-  text-align: center;
+  text-align: left;
   font-size: 3em;
   font-family: "Lato", sans-serif;
 }
@@ -76,9 +76,12 @@ html {
   width: 20%;
   margin-top: 20px;
   margin-bottom: 50px;
-  margin-left: 5%;
+  margin-left: 125px;
   color: gray;
 }
+
+
+ /* Add some padding inside the card container */
 
 .cardStyle {
   margin-left: 10px;
@@ -86,7 +89,7 @@ html {
   width: 80%;
 }
 
-/* Add some padding inside the card container */
+
 .container {
   padding: 2px 16px;
 }
@@ -97,26 +100,29 @@ html {
   margin-top: 10px;
 }
 
-.image {
-  margin-left: 2px;
-  margin-bottom: 20px;
-}
 
-.intro {
-  font-size: 50px;
-  color: gray;
-  margin-left: 400px;
+.intro{
+  font-size: 40px;
+  color: #0B3c5d;
+  text-align: center;
   font-style: italic bold;
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
+  margin-top: 50px;
+  margin-bottom: 30px;
+
+
 }
 
 .intro-text {
   font-family: "Archivo Black", sans-serif;
 }
 
-.logo {
-  color: White;
-  font-family: "Lato", sans-serif;
+
+.logo{
+  color: #0B3c5d;
+  font-family: 'Lato', sans-serif;
+
+
   position: absolute;
   transform: translate(-50%, -50%);
   z-index: 2;
@@ -143,8 +149,10 @@ html {
   text-align: center;
 }
 
-.secondary-bg-color {
-  background-color: gold;
+
+.secondary-bg-color{
+  background-color: #FCCE05;
+
   height: 100%;
 
   /* Center and scale the image nicely */
@@ -153,10 +161,22 @@ html {
   background-size: cover;
 }
 
-.image {
-  margin-left: 2px;
-  margin-bottom: 20px;
+
+.sub-heading{
+  font-size: 20px;
+  color: #0B3c5d;
+  text-align: center;
+  font-style: italic bold;
+  font-family: 'Lato', sans-serif;
+  margin-bottom: 50px;
 }
+
+.tag{
+  color:gray;
+  font-size: 15px;
+  margin: 10px;
+}
+
 
 /* DO NOT TOUCH BELOW THIS LINE!!! */
 
@@ -229,8 +249,11 @@ html {
 
     width: 400px;
     height: 600px;
-    background-color: 7edcff;
 
+    background-color: #7EDCFF;
+    
+
+  
     animation: impact 5s infinite;
   }
   .handle {
@@ -553,21 +576,275 @@ html {
       opacity: 0.7;
     }
   }
-  100% {
-    bottom: 50px;
-    box-shadow: 0 50px 50px rgba(0, 0, 0, 0.1);
+
+
+  
+  /* Pins on landing page */
+  .pin {
+    width: 30px;
+    height: 30px;
+    border-radius: 50% 50% 50% 0;
+    background: #89849b;
+    position: absolute;
+    transform rotate:(-45deg);
+    left: 20%;
+    top: 80%;
+    margin: -20px 0 0 -20px;
+    animation-name: bounce;
+    animation-fill-mode: both;
+    animation-duration: 1s;
+    }
+    &:after{
+      content: '';
+      width: 14px;
+      height: 14px;
+      margin: 8px 0 0 8px;
+      background: #2F2F2F;
+      position: absolute;
+      border-radius: 50%;
+    } 
+  
+      
+  .pulse{
+    background: rgba(0,0,0,0.2);
+    border-radius: 50%;
+    height: 14px;
+    width: 14px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: 11px 0px 0px -12px;
+    transform: rotateX(55deg);
+    z-index: -2;
   }
-}
+    &:after{
+      content: "";
+      border-radius: 50%;
+      height: 40px;
+      width: 40px;
+      position: absolute;
+      margin: -13px 0 0 -13px;
+      animation: pulsate 1s ease-out;
+      animation-iteration-count: infinite;
+      opacity: 0.0;
+      box-shadow: 0 0 1px 2px #89849b;
+      animation-delay: 1.1s;
+    }
+  
+  @keyframes pulsate{
+    from{
+      transform: scale(0.1, 0.1);
+      opacity: 0.0;
+    }
+    50%{
+      opacity: 1.0;
+    } 
+    to {
+      transform: scale(1.2, 1.2);
+      opacity: 0;
+    } 
+  } 
+  
+  @keyframes bounce{
+    0%{
+      opacity: 0;
+      transform: translateY(-2000px) rotate(-45deg);
+    } 
+    60%{
+      opacity: 1;
+      transform: translateY(30px) rotate(-45deg);
+    }  
+    80%{
+      transform: translateY(-10px) rotate(-45deg);
+    }  
+    100%{
+      transform: translateY(0) rotate(-45deg);
+    }
+  }  
+  
+  
+  .pin-1 {
+    width: 30px;
+    height: 30px;
+    border-radius: 50% 50% 50% 0;
+    background: #89849b;
+    position: absolute;
+    transform rotate:(-45deg);
+    left: 45%;
+    top: 10%;
+    margin: -20px 0 0 -20px;
+    animation-name: bounce;
+    animation-fill-mode: both;
+    animation-duration: 1s;
+    }
+    &:after{
+      content: '';
+      width: 14px;
+      height: 14px;
+      margin: 8px 0 0 8px;
+      background: #2F2F2F;
+      position: absolute;
+      border-radius: 50%;
+    } 
+  
+      
+  .pulse-1{
+    background: rgba(0,0,0,0.2);
+    border-radius: 50%;
+    height: 14px;
+    width: 14px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: 11px 0px 0px -12px;
+    transform: rotateX(55deg);
+    z-index: -2;
+  }
+    &:after{
+      content: "";
+      border-radius: 50%;
+      height: 40px;
+      width: 40px;
+      position: absolute;
+      margin: -13px 0 0 -13px;
+      animation: pulsate 1s ease-out;
+      animation-iteration-count: infinite;
+      opacity: 0.0;
+      box-shadow: 0 0 1px 2px #89849b;
+      animation-delay: 1.1s;
+    }
+  
+  @keyframes pulsate{
+    0%{
+      transform: scale(0.1, 0.1);
+      opacity: 0.0;
+    }
+    50%{
+      opacity: 1.0;
+    } 
+    100%{
+      transform: scale(1.2, 1.2);
+      opacity: 0;
+    } 
+  } 
+  
+  @keyframes bounce{
+    0%{
+      opacity: 0;
+      transform: translateY(-2000px) rotate(-45deg);
+    } 
+    60%{
+      opacity: 1;
+      transform: translateY(30px) rotate(-45deg);
+    }  
+    80%{
+      transform: translateY(-10px) rotate(-45deg);
+    }  
+    100%{
+      transform: translateY(0) rotate(-45deg);
+    }
+  }  
 
-.loading-button {
-  animation: bouncing 0.5s cubic-bezier(0.1, 0.25, 0.1, 1) 0s infinite alternate
-    both;
-}
+  .pin-2 {
+    width: 30px;
+    height: 30px;
+    border-radius: 50% 50% 50% 0;
+    background: #89849b;
+    position: absolute;
+    transform rotate:(-45deg);
+    left: 75%;
+    top: 50%;
+    margin: -20px 0 0 -20px;
+    animation-name: bounce;
+    animation-fill-mode: both;
+    animation-duration: 1s;
+    }
+    &:after{
+      content: '';
+      width: 14px;
+      height: 14px;
+      margin: 8px 0 0 8px;
+      background: #2F2F2F;
+      position: absolute;
+      border-radius: 50%;
+    } 
+  
+      
+  .pulse-2{
+    background: rgba(0,0,0,0.2);
+    border-radius: 50%;
+    height: 14px;
+    width: 14px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: 11px 0px 0px -12px;
+    transform: rotateX(55deg);
+    z-index: -2;
+  }
+    &:after{
+      content: "";
+      border-radius: 50%;
+      height: 40px;
+      width: 40px;
+      position: absolute;
+      margin: -13px 0 0 -13px;
+      animation: pulsate 1s ease-out;
+      animation-iteration-count: infinite;
+      opacity: 0.0;
+      box-shadow: 0 0 1px 2px #89849b;
+      animation-delay: 1.1s;
+    }
 
-.intro {
-  font-size: 50px;
-  color: gray;
-  margin-left: 400px;
-  font-style: italic bold;
-  font-family: "Lato", sans-serif;
-}
+    .pin-3 {
+      width: 30px;
+      height: 30px;
+      border-radius: 50% 50% 50% 0;
+      background: #89849b;
+      position: absolute;
+      transform rotate:(-45deg);
+      left: 90%;
+      top: 17%;
+      margin: -20px 0 0 -20px;
+      animation-name: bounce;
+      animation-fill-mode: both;
+      animation-duration: 1s;
+      }
+      &:after{
+        content: '';
+        width: 14px;
+        height: 14px;
+        margin: 8px 0 0 8px;
+        background: #2F2F2F;
+        position: absolute;
+        border-radius: 50%;
+      } 
+    
+        
+    .pulse-3{
+      background: rgba(0,0,0,0.2);
+      border-radius: 50%;
+      height: 14px;
+      width: 14px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin: 11px 0px 0px -12px;
+      transform: rotateX(55deg);
+      z-index: -2;
+    }
+      &:after{
+        content: "";
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        position: absolute;
+        margin: -13px 0 0 -13px;
+        animation: pulsate 1s ease-out;
+        animation-iteration-count: infinite;
+        opacity: 0.0;
+        box-shadow: 0 0 1px 2px #89849b;
+        animation-delay: 1.1s;
+      }
+
+  
