@@ -39,7 +39,7 @@ function searchBrewery() {
   }).then(function(response) {
     console.log(response);
     console.log("response 0", response[0]);
-    
+
     initMap(city);
     renderList(response);
   });
@@ -72,7 +72,7 @@ function renderList(response) {
         </div>
       </div>`
     );
-    
+
     $("#resultBrew").append(brewDiv);
     pinInMap(response[i]);
   }
@@ -154,17 +154,16 @@ function pinInMap(brewery) {
     (brewery.latitude || brewery.latitude == 0) &&
     (brewery.longitude || brewery.longitude == 0)
   ) {
-  var markerToCreate = new google.maps.Marker({
-    position: {
-      lat: parseInt(brewery.latitude),
-      lng: parseInt(brewery.longitude)
-    },
-    map: map,
-    title: "Hello World!"
-  });
-  console.log("mark", markerToCreate);
-  // console.log('map', map);
-  markerToCreate.setMap(map);
+    var markerToCreate = new google.maps.Marker({
+      map: map,
+      draggable: true,
+      position: {
+        lat: parseFloat(brewery.latitude),
+        lng: parseFloat(brewery.longitude)
+      }
+    });
+    console.log("mark", parseFloat(brewery.latitude));
+    markerToCreate.setMap(map);
   }
 }
 
@@ -182,8 +181,6 @@ $("form").submit(function(event) {
   $("#resultBrew").html("");
   searchBrewery();
 });
-
-
 
 initMap();
 //init card
