@@ -7,6 +7,7 @@ let queryPatio = "";
 let queryDog = "";
 let queryFood = "";
 let queryTours = "";
+let map = "";
 
 function searchBrewery() {
   city = $("#cityInput").val();
@@ -38,39 +39,42 @@ function searchBrewery() {
   }).then(function(response) {
     console.log(response);
     console.log("response 0", response[0]);
-    renderList(response);
 
     initMap(city);
+    renderList(response);
   });
 }
 
 function renderList(response) {
   // get cream filling
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < response.length; i++) {
     if (response[i].phone === "") {
-      response[i].phone = "info not avaiable yet";
+      response[i].phone = "info not available yet";
     }
     if (response[i].website_url === "") {
       response[i].website_url = "no website";
     }
+
+    //  <div>
+    //  ${response[i].phone}
+    //  </div>
+    //  <div>
+    //  ${response[i].website_url}
+    //  </div>
+
     var brewDiv = $(
       `<div class="cardResults">
-    <h3>
-        ${response[i].name}
-    </h3>
-    <div>
-        ${response[i].street}
-    </div>
-    <div>
-        ${response[i].phone}
-    </div>
-    <div>
-        ${response[i].website_url}
-    </div>
-    </div>`
+        <h3>
+          ${response[i].name}
+        </h3>
+        <div>
+          ${response[i].street}
+        </div>
+      </div>`
     );
 
     $("#resultBrew").append(brewDiv);
+    pinInMap(response[i]);
   }
 }
 
@@ -145,6 +149,24 @@ function initMap(city) {
   });
 }
 
+function pinInMap(brewery) {
+  if (
+    (brewery.latitude || brewery.latitude == 0) &&
+    (brewery.longitude || brewery.longitude == 0)
+  ) {
+    var markerToCreate = new google.maps.Marker({
+      map: map,
+      draggable: true,
+      position: {
+        lat: parseFloat(brewery.latitude),
+        lng: parseFloat(brewery.longitude)
+      }
+    });
+    console.log("mark", parseFloat(brewery.latitude));
+    markerToCreate.setMap(map);
+  }
+}
+
 $("#startBtn").click(function() {
   $("html,body").animate(
     {
@@ -156,14 +178,11 @@ $("#startBtn").click(function() {
 
 $("form").submit(function(event) {
   event.preventDefault();
+  $("#resultBrew").html("");
   searchBrewery();
 });
 
-$("#searchBtn").on("click", function() {
-  searchBrewery();
-});
-
-initMap("chicago");
+initMap();
 //init card
 //show card with imputs city state
 //drop for number of results
