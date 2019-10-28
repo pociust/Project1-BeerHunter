@@ -7,6 +7,7 @@ let queryPatio = "";
 let queryDog = "";
 let queryFood = "";
 let queryTours = "";
+let map = "";
 
 function searchBrewery() {
   city = $("#cityInput").val();
@@ -36,23 +37,25 @@ function searchBrewery() {
     url: queryUrl,
     method: "GET"
   }).then(function(response) {
+
     console.log("response", response);
     renderList(response);
 
     initMap(city);
+    renderList(response);
   });
 }
 
 function renderList(response) {
   // get cream filling
-
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < response.length; i++) {
     if (response[i].phone === "") {
-      response[i].phone = "info not avaiable yet";
+      response[i].phone = "info not available yet";
     }
     if (response[i].website_url === "") {
       response[i].website_url = "no website";
     }
+
     var lat = response[i].latitude;
     var lon = response[i].longitude;
     //locationArray.push(lat, lon);
@@ -165,6 +168,24 @@ function initMap(city) {
   });
 }
 
+function pinInMap(brewery) {
+  if (
+    (brewery.latitude || brewery.latitude == 0) &&
+    (brewery.longitude || brewery.longitude == 0)
+  ) {
+    var markerToCreate = new google.maps.Marker({
+      map: map,
+      draggable: true,
+      position: {
+        lat: parseFloat(brewery.latitude),
+        lng: parseFloat(brewery.longitude)
+      }
+    });
+    console.log("mark", parseFloat(brewery.latitude));
+    markerToCreate.setMap(map);
+  }
+}
+
 $("#startBtn").click(function() {
   $("html,body").animate(
     {
@@ -176,6 +197,7 @@ $("#startBtn").click(function() {
 
 $("form").submit(function(event) {
   event.preventDefault();
+  $("#resultBrew").html("");
   searchBrewery();
 });
 

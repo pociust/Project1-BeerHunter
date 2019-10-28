@@ -11,6 +11,7 @@
     <script src="https://kit.fontawesome.com/0270abbd8e.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZrGx2lk-aBzNw1Y5aR-f4DuzZP_a1v2g&libraries=places" ></script>
     <title>BeerHunter</title>
 </head>
 
@@ -160,10 +161,10 @@
                 <input id="food" class="tag" type="checkbox">Food-Service</input>
                 <input id="tours" class="tag" type="checkbox">Tours</input>
             </div>
+            <button class="btn btn-lg btn-secondary" id="searchBtn" type="submit">Submit</button>
         </form>
         <!-- submit button -->
-        <button class="btn btn-lg btn-secondary" id="searchBtn" type="submit">Submit</button>
-
+        
     </div>
 
     <div class="container-wrapper">
@@ -192,8 +193,6 @@
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="app.js"></script>
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZrGx2lk-aBzNw1Y5aR-f4DuzZP_a1v2g&callback=initMap&libraries=places" ></script>
 
        
 </body>
