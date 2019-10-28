@@ -79,6 +79,14 @@ html {
 
 
  /* Add some padding inside the card container */
+ .cardResults{
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: "Lato", sans-serif;
+  /* width: 80%; */
+  padding: 3px 10px;
+  margin-bottom: 8px;
+}
 
 .cardStyle {
   margin-left: 10px;
@@ -97,6 +105,13 @@ html {
   margin-top: 10px;
 }
 
+.inputHolder{
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 3px 10px;
+  margin-bottom: 8px;
+}
+
 
 .intro{
   font-size: 40px;
@@ -104,15 +119,13 @@ html {
   text-align: center;
   font-style: italic bold;
   font-family: 'Lato', sans-serif;
-  margin-top: 50px;
+  margin-top: 40px;
   margin-bottom: 30px;
 }
 
 .logo{
   color: #0B3c5d;
   font-family: 'Lato', sans-serif;
-
-
   position: absolute;
   transform: translate(-50%, -50%);
   z-index: 2;
@@ -125,6 +138,8 @@ html {
   font-family: "Lato", sans-serif;
   color: #0B3c5d;
 }
+
+
 
 .searchBox {
   width: 100%;
@@ -152,11 +167,6 @@ html {
   background-size: cover;
 }
 
-.small-text{
-  font-size: 5px;
-}
-
-
 .sub-heading{
   font-size: 20px;
   color: #0B3c5d;
@@ -170,6 +180,17 @@ html {
   color:gray;
   font-size: 15px;
   margin: 10px;
+  margin-bottom: 30px;
+}
+
+.third-bg-c{
+  width: 100%;
+  background-color: #0B3c5d;
+  font-family: 'Lato', sans-serif; 
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  padding:30px;
 }
 
 /* Portrait iPhone X */
