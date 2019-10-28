@@ -1,6 +1,6 @@
 // google maps api key AIzaSyBZrGx2lk-aBzNw1Y5aR-f4DuzZP_a1v2g || key=AIzaSyBZrGx2lk-aBzNw1Y5aR-f4DuzZP_a1v2g
 var city = "chicago";
-// var state =
+var state = "illinois";
 //initMap(city);
 
 let queryPatio = "";
@@ -37,8 +37,9 @@ function searchBrewery() {
     url: queryUrl,
     method: "GET"
   }).then(function(response) {
-    console.log(response);
-    console.log("response 0", response[0]);
+
+    console.log("response", response);
+    renderList(response);
 
     initMap(city);
     renderList(response);
@@ -55,26 +56,28 @@ function renderList(response) {
       response[i].website_url = "no website";
     }
 
-    //  <div>
-    //  ${response[i].phone}
-    //  </div>
-    //  <div>
-    //  ${response[i].website_url}
-    //  </div>
+    var lat = response[i].latitude;
+    var lon = response[i].longitude;
+    //locationArray.push(lat, lon);
 
     var brewDiv = $(
-      `<div class="cardResults">
-        <h3>
-          ${response[i].name}
-        </h3>
-        <div>
-          ${response[i].street}
-        </div>
-      </div>`
+      `<div class="cardResults" data-name="${response[i].name}" data-lat="${response[i].latitude}" data-lon="${response[i].longitude}" id="result">
+    <h3>
+        ${response[i].name}
+    </h3>
+    <div>
+        ${response[i].street}
+    </div>
+    <div>
+        ${response[i].phone}
+    </div>
+    <div>
+        ${response[i].website_url}
+    </div>
+    </div>`
     );
 
-    $("#resultBrew").append(brewDiv);
-    pinInMap(response[i]);
+    $("#resultBrew").prepend(brewDiv);
   }
 }
 
@@ -83,7 +86,7 @@ function initMap(city) {
 
   var options = {
     center: /* { lat: 0, lng: 0 },*/ { lat: 41.8781, lng: -87.6298 },
-    zoom: 14
+    zoom: 10
   };
   //intialize id
   map = new google.maps.Map(document.getElementById("map"), options);
@@ -137,7 +140,7 @@ function initMap(city) {
           position: p.geometry.location
         })
       );
-
+      console.log("marker", marker);
       //update bounds of map to take each place into account
       //check if place had geometry view port geomerty ref https://developers.google.com/maps/documentation/javascript/geometry (if it preffered set to combination ref https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLngBounds)
       if (p.geometry.viewport) bounds.union(p.geometry.viewport);
@@ -146,6 +149,22 @@ function initMap(city) {
 
     //call fit bounds on map object and pass in bounds
     map.fitBounds(bounds);
+  });
+
+  $(document).on("click", ".cardResults", function() {
+    var lat = parseFloat($(this).attr("data-lat"));
+    var lon = parseFloat($(this).attr("data-lon"));
+    console.log("lat", lat);
+    console.log("lon", lon);
+
+    marker = new google.maps.Marker({
+      map: map,
+      draggable: true,
+      position: { lat: lat, lng: lon }
+    });
+    console.log("marker", marker);
+    // To add the marker to the map, call setMap();
+    marker.setMap(map);
   });
 }
 
@@ -182,7 +201,18 @@ $("form").submit(function(event) {
   searchBrewery();
 });
 
-initMap();
+$("#searchBtn").on("click", function() {
+  searchBrewery();
+});
+
+// $(document).on("click", ".cardResults", function() {
+//   var lat = $(this).attr("data-lat");
+//   var lon = $(this).attr("data-lon");
+//   console.log("lat", lat);
+//   console.log("lon", lon);
+// });
+
+//initMap("chicago");
 //init card
 //show card with imputs city state
 //drop for number of results
