@@ -11,21 +11,31 @@
     <script src="https://kit.fontawesome.com/0270abbd8e.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZrGx2lk-aBzNw1Y5aR-f4DuzZP_a1v2g&libraries=places" ></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZrGx2lk-aBzNw1Y5aR-f4DuzZP_a1v2g&libraries=places"></script>
     <title>BeerHunter</title>
 </head>
 
 <body>
-    <!-- header? -->
-    <h1 class="logo">BeerHunter</h1>
 
-    <div class="bg-color"></div>
+    <div class="bg-color container-fluid">
+        <!-- landing page-logo -->
+        <div class="container-header d-flex align-self-start">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="logo">BeerHunter</h1>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- Pin section -->
+    <!--landing page-blurb-->
     <div class="bg-text-1">
         <p class="intro-text">Looking for a place to drink?</p>
         <p class="intro-text-1">Find a brewery<br> or plan a pub crawl.</p>
     </div>
+
+    <!--landing page-call to action-->
     <div class="bg-text">
         <p class="p-text tracking-in-expand">Let's Drink.</p>
         <button id="startBtn" class="btn btn-lg btn-warning">Get Started</button>
@@ -51,7 +61,7 @@
         <div class='pulse'></div>
     </div> -->
 
-    <!-- Beer Animation -->
+    <!--landing page-Beer Animation -->
     <div class="beerContainer">
         <div class="shadow"></div>
         <div class="mug-of-beer">
@@ -86,7 +96,7 @@
         </div>
     </div>
 
-
+    <!--section-what's beerhunter cards-->
     <div class="container">
         <!-- row one -->
         <div class="row">
@@ -97,6 +107,8 @@
 
         <!-- row two -->
         <div class="row d-flex justify-content-between">
+
+            <!--card one-->
             <div class="col-md-3 card">
                 <i class="fas fa-beer fa-3x iconStyle"></i>
                 <div class="container">
@@ -104,6 +116,8 @@
                     <p>Search your local area for a top-notch brewery or maybe discover a micro brewery.</p>
                 </div>
             </div>
+
+            <!--card two-->
             <div class="col-md-3 card">
                 <i class="fas fa-calendar fa-3x iconStyle"></i>
                 <div class="container">
@@ -112,26 +126,30 @@
 
                 </div>
             </div>
+
+            <!--card three-->
             <div class="col-md-3 card">
                 <i class="fas fa-map-marked fa-3x iconStyle"></i>
                 <div class="container">
                     <h4><b>Plan a trip</b></h4>
                     <p>Tour a brewery while on vacation. Actually, plan your vacation around your brewrey tours. </p>
                 </div>
-
             </div>
+
         </div>
+
     </div>
 
-    <!-- card/inner div -->
+    <!-- section-bottoms up-Search Box div -->
     <div class="container-fluid searchBox secondary-bg-color">
+
         <div>
             <p class="intro">Bottoms Up</p>
             <p class="sub-heading">Looking for something specific?<br> Be sure to check the boxes to make your night
                 perfect.</p>
         </div>
 
-        <!-- amt results dropdown menu -->
+        <!-- dropdown menu-# of results -->
 
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
@@ -146,8 +164,9 @@
         </div>
         <br>
 
-        <!-- text input -->
+        <!--form wrapper-->
         <form id="target">
+            <!-- text input -->
             <div>
                 <input class="inputHolder" id="cityInput" type="text" placeholder="City"></input>
                 <input class="inputHolder" id="stateInput" type="text" placeholder="State"></input>
@@ -161,21 +180,23 @@
                 <input id="food" class="tag" type="checkbox">Food-Service</input>
                 <input id="tours" class="tag" type="checkbox">Tours</input>
             </div>
+
+            <!-- submit button -->
             <button class="btn btn-lg btn-secondary" id="searchBtn" type="submit">Submit</button>
         </form>
-        <!-- submit button -->
-        
+
     </div>
 
-    <div class="third-bg-c">
+    <!--section-map and brewery search result list-->
+    <div class="third-bg-c container-fluid">
         <p>Click on a brewery and map out your night.</p>
     </div>
 
     <div class="container-wrapper">
         <div class="row d-flex justify-content-center">
 
+            <!-- left side - map -->
             <div class="col-md-6">
-                <!-- left side map -->
                 <div class="container-left">
                     <div>
                         <input id="search" type="text" placeholder="Search..." />
@@ -184,8 +205,8 @@
                 </div>
             </div>
 
+            <!-- right side - results -->
             <div class="col-md-6">
-                <!-- right side results -->
                 <div class="container-right border" id="resultBrew"></div>
             </div>
 
@@ -198,7 +219,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="app.js"></script>
 
-       
+
 </body>
 
 </html>
