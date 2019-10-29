@@ -74,6 +74,8 @@ function renderList(response) {
     <div>
         ${response[i].website_url}
     </div>
+    <input type="checkbox">
+    </input>
     </div>`
     );
 
