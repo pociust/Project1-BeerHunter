@@ -1,4 +1,3 @@
-// google maps api key AIzaSyBZrGx2lk-aBzNw1Y5aR-f4DuzZP_a1v2g || key=AIzaSyBZrGx2lk-aBzNw1Y5aR-f4DuzZP_a1v2g
 var city = "";
 var state = "";
 //initMap(city);
@@ -52,15 +51,9 @@ function renderList(response) {
       response[i].website_url = "no website";
     }
 
-    //  <div>
-    //  ${response[i].phone}
-    //  </div>
-    //  <div>
-    //  ${response[i].website_url}
-    //  </div>
 
     var brewDiv = $(
-      `<div class="cardResults">
+      `<div class="cardResults" data-name="${response[i].name}" data-lat="${response[i].latitude}" data-lon="${response[i].longitude}" id="result">
         <h3>
           ${response[i].name}
         </h3>
@@ -75,14 +68,12 @@ function renderList(response) {
   }
 }
 
-
-
 function initMap(city) {
   var geocoder = new google.maps.Geocoder();
 
   var options = {
     center: /* { lat: 0, lng: 0 },*/ { lat: 41.8781, lng: -87.6298 },
-    zoom: 14
+    zoom: 12
   };
   //intialize id
   map = new google.maps.Map(document.getElementById("map"), options);
@@ -95,20 +86,29 @@ function initMap(city) {
     //}
   });
 
-  var input = document.getElementById("search");
-  //search box auto completes what you are trying see also auto complete
-  var searchBox = new google.maps.places.SearchBox(input);
-
-  //function to make search results bias in maps current viewport
-  //add lisenter to map see events page at https://developers.google.com/maps/documentation/javascript/events
-  map.addListener("bounds_changed", function() {
-    //set the bounds on search box to the bounds of the map
-    searchBox.setBounds(map.getBounds());
-  });
-
-  //see search results on map
   var marker = [];
 
+  $(document).on("click", ".cardResults", function() {
+    var lat = parseFloat($(this).attr("data-lat"));
+    var lon = parseFloat($(this).attr("data-lon"));
+    var place = $(this).attr("data-name");
+
+    console.log("lat", lat);
+    console.log("lon", lon);
+    console.log("place", place);
+
+    var icon = {
+      url: "./smbottle.png", // url
+      scaledSize: new google.maps.Size(13, 34), // scaled size
+      origin: new google.maps.Point(0, 0), // origin
+      anchor: new google.maps.Point(0, 0) // anchor
+    };
+
+    var infowindow = new google.maps.InfoWindow({
+      content: "contentString"
+    });
+
+    
   searchBox.addListener("places_changed", function() {
     // call back will run when user selects place from list
     var places = searchBox.getPlaces();
@@ -147,22 +147,44 @@ function initMap(city) {
     map.fitBounds(bounds);
   });
 }
+    codeAddress();
 
-function pinInMap(brewery) {
-  var geocoder = new google.maps.Geocoder();
-  geocoder.geocode( { 'address': `${brewery.name}`}, function(results, status) {
-    if (status == google.maps.GeocoderStatus.OK) {
-      var marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location
+    function codeAddress() {
+      geocoder.geocode({ address: place }, function(results, status) {
+        if (status == "OK") {
+          map.setCenter(results[0].geometry.location);
+          marker = new google.maps.Marker({
+            map: map,
+            draggable: false,
+            position: results[0].geometry.location,
+            icon: icon
+          });
+
+          console.log("result map", results[0]);
+          marker.setMap(map);
+        }
       });
-      marker.setMap(map);
-      console.log(brewery.name);
     }
   });
+
+  marker.addListener("click", function() {
+    infowindow.open(map, marker);
+  });
+
+  function pinInMap(brewery) {
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ address: `${brewery.name}` }, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        var marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
+        });
+        marker.setMap(map);
+        console.log(brewery.name);
+      }
+    });
+  }
 }
-
-
 
 $("#startBtn").click(function() {
   $("html,body").animate(
