@@ -175,6 +175,7 @@ function initMap(city) {
               `<h3 class="marker-heading">${place}</h3>` +
               "This is a new marker infoWindow" +
               "</span>" +
+              '<br/><button name="remove-marker" class="remove-marker" title="Remove Marker">Remove Marker</button>' +
               "</div>"
           );
 
@@ -187,6 +188,10 @@ function initMap(city) {
           //add click event listener to marker which will open infoWindow
           google.maps.event.addListener(marker, "click", function() {
             infowindow.open(map, marker); // click on marker opens info window
+          });
+          var removeBtn = contentString.find("button.remove-marker")[0];
+          google.maps.event.addDomListener(removeBtn, "click", function(event) {
+            marker.setMap(null);
           });
         }
       });
@@ -242,6 +247,12 @@ $("form").submit(function(event) {
   event.preventDefault();
   $("#resultBrew").html("");
   searchBrewery();
+  $("html,body").animate(
+    {
+      scrollTop: $("#mapContainer").offset().top
+    },
+    "slow"
+  );
 });
 
 //initMap();
