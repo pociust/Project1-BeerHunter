@@ -41,26 +41,6 @@
         <button id="startBtn" class="btn btn-lg btn-warning">Get Started</button>
     </div>
 
-    <!-- <div class="postion" style="position:absolute; top:80%; left:20%;">
-        <div class='pin'></div>
-        <div class='pulse'></div>
-    </div>
-
-    <div class="postion" style="position:absolute; top:10%; left:50%;">
-        <div class='pin'></div>
-        <div class='pulse'></div>
-    </div>
-
-    <div class="postion" style="position:absolute; top:50%; left:70%;">
-        <div class='pin'></div>
-        <div class='pulse'></div>
-    </div>
-
-    <div class="postion" style="position:absolute; top:20%; left:80%;">
-        <div class='pin'></div>
-        <div class='pulse'></div>
-    </div> -->
-
     <!--landing page-Beer Animation -->
     <div class="beerContainer">
         <div class="shadow"></div>
@@ -113,7 +93,7 @@
                 <i class="fas fa-beer fa-3x iconStyle"></i>
                 <div class="container">
                     <h4><b>Find a Brewery</b></h4>
-                    <p>Search your local area for a top-notch brewery or maybe discover a micro brewery.</p>
+                    <p>Search your local area for the nearest brew pub or find the new brewery that has created a lot of buzz.</p>
                 </div>
             </div>
 
@@ -122,7 +102,7 @@
                 <i class="fas fa-calendar fa-3x iconStyle"></i>
                 <div class="container">
                     <h4><b>Plan the ultimate pub crawl</b></h4>
-                    <p>Create an agenda with the start time. Send it to your friends</p>
+                    <p>Map out your night to find all the breweries in one area.</p>
 
                 </div>
             </div>
@@ -132,7 +112,7 @@
                 <i class="fas fa-map-marked fa-3x iconStyle"></i>
                 <div class="container">
                     <h4><b>Plan a trip</b></h4>
-                    <p>Tour a brewery while on vacation. Actually, plan your vacation around your brewrey tours. </p>
+                    <p>Tour a brewery while on vacation. Or plan your vacation around your brewrey tours. </p>
                 </div>
             </div>
 
@@ -144,24 +124,15 @@
     <div class="container-fluid searchBox secondary-bg-color">
 
         <div>
-            <p class="intro">Bottoms Up</p>
+            <p class="intro">Bottoms Up.</p>
             <p class="sub-heading">Looking for something specific?<br> Be sure to check the boxes to make your night
                 perfect.</p>
         </div>
 
-        <!-- dropdown menu-# of results -->
-
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Number of Results
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">5</a>
-                <a class="dropdown-item" href="#">10</a>
-                <a class="dropdown-item" href="#">15</a>
-            </div>
-        </div>
+        <!-- Icon -->
+       <div>
+        <i class="fas fa-glass-cheers fa-3x icon"></i>
+       </div>
         <br>
 
         <!--form wrapper-->
@@ -174,7 +145,7 @@
             </div>
 
             <!-- search parameter checkboxes -->
-            <div>
+            <div class="checkbox">
                 <input id="patio" class="tag" type="checkbox">Patio</input>
                 <input id="dog" class="tag" type="checkbox">Dog-Friendly</input>
                 <input id="food" class="tag" type="checkbox">Food-Service</input>
@@ -188,30 +159,29 @@
     </div>
 
     <!--section-map and brewery search result list-->
-    <div class="third-bg-c container-fluid">
-        <p>Click on a brewery and map out your night.</p>
-    </div>
-
-    <div class="container-wrapper">
-        <div class="row d-flex justify-content-center">
-
-            <!-- left side - map -->
-            <div class="col-md-6">
-                <div class="container-left">
-                    <div>
-                        <input id="search" type="text" placeholder="Search..." />
-                    </div>
-                    <div id="map" style="height: 600px; width: 600px;"></div>
-                </div>
-            </div>
-
-            <!-- right side - results -->
-            <div class="col-md-6">
-                <div class="container-right border" id="resultBrew"></div>
-            </div>
-
+    <div class="hide" id="mapContainer">
+        <div class="third-bg-c container-fluid">
+            <p>Click on a brewery and map out your night.</p>
         </div>
-    </div>
+
+        <div class="container-wrapper">
+            <div class="row d-flex justify-content-center">
+​
+                <!-- left side - results -->
+                <div class="col-md-6">
+                    <div class="container-left" id="resultBrew"></div>
+                </div>
+​
+                <!-- right side - map -->
+                <div class="col-md-6">
+                    <div class="container-right">
+                        <div id="map" style="height: 600px; width: 600px;"></div>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </div> 
+
 
     <!-- footer -->
     <footer></footer>

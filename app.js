@@ -10,6 +10,7 @@ let queryTours = "";
 let map = "";
 
 function searchBrewery() {
+  $("#mapContainer").removeClass("hide");
   city = $("#cityInput").val();
   state = $("#stateInput").val() || "";
 
@@ -60,12 +61,13 @@ function renderList(response) {
     //  </div>
 
     var brewDiv = $(
-      `<div class="cardResults">
+      `<div class="cardResults no-touch pointer" data-name="${response[i].name}" data-lat="${response[i].latitude}" data-lon="${response[i].longitude}" id="result">
         <h3>
-          ${response[i].name}
+        ${response[i].name}
         </h3>
         <div>
-          ${response[i].street}
+        ${response[i].street}
+        </div>
         </div>
       </div>`
     );
