@@ -158,6 +158,41 @@ function pinInMap(brewery) {
       console.log(brewery.name);
     }
   });
+
+  $(document).on("click", ".cardResults", function() {
+    var lat = parseFloat($(this).attr("data-lat"));
+    var lon = parseFloat($(this).attr("data-lon"));
+    var place = $(this).attr("data-name");
+
+    console.log("lat", lat);
+    console.log("lon", lon);
+    console.log("place", place);
+
+    var icon = {
+      url: "./smbottle.png", // url
+      scaledSize: new google.maps.Size(13, 34), // scaled size
+      origin: new google.maps.Point(0, 0), // origin
+      anchor: new google.maps.Point(0, 0) // anchor
+    };
+
+    codeAddress();
+
+    function codeAddress() {
+      geocoder.geocode({ address: place }, function(results, status) {
+        if (status == "OK") {
+          map.setCenter(results[0].geometry.location);
+          var marker = new google.maps.Marker({
+            map: map,
+            draggable: false,
+            position: results[0].geometry.location,
+            icon: icon
+          });
+          console.log("result map", results[0]);
+          marker.setMap(map);
+        }
+      });
+    }
+  });
 }
 
 $("#startBtn").click(function() {
