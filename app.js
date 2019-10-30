@@ -1,12 +1,12 @@
-// google maps api key AIzaSyBZrGx2lk-aBzNw1Y5aR-f4DuzZP_a1v2g || key=AIzaSyBZrGx2lk-aBzNw1Y5aR-f4DuzZP_a1v2g
-var city = "chicago";
-var state = "illinois";
+var city = "";
+var state = "";
 //initMap(city);
 
 let queryPatio = "";
 let queryDog = "";
 let queryFood = "";
 let queryTours = "";
+let map = "";
 
 function searchBrewery() {
   city = $("#cityInput").val();
@@ -40,30 +40,19 @@ function searchBrewery() {
     renderList(response);
 
     initMap(city);
+    renderList(response);
   });
 }
 
-// get seletcted value
-function getSelectedValue() {
-  let selectedValue = $(".dropdown-item").val();
-  console.log("selected val", selectedValue);
-}
-
 function renderList(response) {
-  getSelectedValue();
-
   // get cream filling
-
-  for (i = 0; i < 6; i++) {
+  for (i = 0; i < response.length; i++) {
     if (response[i].phone === "") {
-      response[i].phone = "info not avaiable yet";
+      response[i].phone = "info not available yet";
     }
     if (response[i].website_url === "") {
       response[i].website_url = "no website";
     }
-    var lat = response[i].latitude;
-    var lon = response[i].longitude;
-    //locationArray.push(lat, lon);
 
     var brewDiv = $(
       `<div class="cardResults" data-name="${response[i].name}" data-lat="${response[i].latitude}" data-lon="${response[i].longitude}" id="result">
@@ -73,14 +62,18 @@ function renderList(response) {
     <div>
         ${response[i].street}
     </div>
-    <div>
-        ${response[i].phone}
-    </div>
-    <div>
-        ${response[i].website_url}
-    </div>
+    
+    <input type="checkbox">
+    </input>
     </div>`
     );
+
+    // <div>
+    //     ${response[i].phone}
+    // </div>
+    // <div>
+    //     ${response[i].website_url}
+    // </div>
 
     $("#resultBrew").prepend(brewDiv);
   }
@@ -104,58 +97,7 @@ function initMap(city) {
     //}
   });
 
-  var input = document.getElementById("search");
-  //search box auto completes what you are trying see also auto complete
-  var searchBox = new google.maps.places.SearchBox(input);
-
-  //function to make search results bias in maps current viewport
-  //add lisenter to map see events page at https://developers.google.com/maps/documentation/javascript/events
-  map.addListener("bounds_changed", function() {
-    //set the bounds on search box to the bounds of the map
-    searchBox.setBounds(map.getBounds());
-  });
-
-  //see search results on map
   var marker = [];
-
-  searchBox.addListener("places_changed", function() {
-    // call back will run when user selects place from list
-    var places = searchBox.getPlaces();
-
-    if (places.length === 0) return;
-
-    //clear out all markers used in interation
-    // marker.forEach(function(m) {
-    //   m.setMap(null);
-    // });
-    // marker = [];
-
-    // create bounds object or coordinate boundaries of map
-    var bounds = new google.maps.LatLngBounds();
-
-    //iterate over places add marker for earch and adjust bounds of map
-    places.forEach(function(p) {
-      //check for geo attr or data for postion; if not
-      if (!p.geometry) return;
-      console.log("place", places);
-
-      marker.push(
-        new google.maps.Marker({
-          map: map,
-          title: p.name,
-          position: p.geometry.location
-        })
-      );
-      console.log("marker", marker);
-      //update bounds of map to take each place into account
-      //check if place had geometry view port geomerty ref https://developers.google.com/maps/documentation/javascript/geometry (if it preffered set to combination ref https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLngBounds)
-      if (p.geometry.viewport) bounds.union(p.geometry.viewport);
-      else bounds.extend(p.geometry.location);
-    });
-
-    //call fit bounds on map object and pass in bounds
-    map.fitBounds(bounds);
-  });
 
   $(document).on("click", ".cardResults", function() {
     var lat = parseFloat($(this).attr("data-lat"));
@@ -173,39 +115,31 @@ function initMap(city) {
       anchor: new google.maps.Point(0, 0) // anchor
     };
 
+    var infowindow = new google.maps.InfoWindow({
+      content: "contentString"
+    });
+
     codeAddress();
 
     function codeAddress() {
       geocoder.geocode({ address: place }, function(results, status) {
         if (status == "OK") {
           map.setCenter(results[0].geometry.location);
-          var marker = new google.maps.Marker({
+          marker = new google.maps.Marker({
             map: map,
             draggable: false,
             position: results[0].geometry.location,
             icon: icon
           });
+
           console.log("result map", results[0]);
           marker.setMap(map);
         }
       });
     }
-    var icon = {
-      url: "./smbottle.png", // url
-      scaledSize: new google.maps.Size(13, 34), // scaled size
-      origin: new google.maps.Point(0, 0), // origin
-      anchor: new google.maps.Point(0, 0) // anchor
-    };
-
-    // marker = new google.maps.Marker({
-    //   map: map,
-    //   draggable: false,
-    //   position: { lat: lat, lng: lon },
-    //   icon: icon
-    // });
-    // console.log("marker", marker);
-    // // To add the marker to the map, call setMap();
-    // marker.setMap(map);
+  });
+  marker.addListener("click", function() {
+    infowindow.open(map, marker);
   });
 }
 
@@ -220,6 +154,7 @@ $("#startBtn").click(function() {
 
 $("form").submit(function(event) {
   event.preventDefault();
+  $("#resultBrew").html("");
   searchBrewery();
 });
 
