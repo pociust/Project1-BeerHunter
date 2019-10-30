@@ -1,6 +1,5 @@
 var city = "";
 var state = "";
-
 //initMap(city);
 
 let queryPatio = "";
@@ -36,9 +35,7 @@ function searchBrewery() {
     url: queryUrl,
     method: "GET"
   }).then(function(response) {
-    console.log("response", response);
-    renderList(response);
-
+    console.log(response);
     initMap(city);
     renderList(response);
   });
@@ -54,28 +51,20 @@ function renderList(response) {
       response[i].website_url = "no website";
     }
 
+
     var brewDiv = $(
       `<div class="cardResults" data-name="${response[i].name}" data-lat="${response[i].latitude}" data-lon="${response[i].longitude}" id="result">
-    <h3>
-        ${response[i].name}
-    </h3>
-    <div>
-        ${response[i].street}
-    </div>
-    
-    <input type="checkbox">
-    </input>
-    </div>`
+        <h3>
+          ${response[i].name}
+        </h3>
+        <div>
+          ${response[i].street}
+        </div>
+      </div>`
     );
 
-    // <div>
-    //     ${response[i].phone}
-    // </div>
-    // <div>
-    //     ${response[i].website_url}
-    // </div>
-
-    $("#resultBrew").prepend(brewDiv);
+    $("#resultBrew").append(brewDiv);
+    pinInMap(response[i]);
   }
 }
 
@@ -119,6 +108,45 @@ function initMap(city) {
       content: "contentString"
     });
 
+    
+  searchBox.addListener("places_changed", function() {
+    // call back will run when user selects place from list
+    var places = searchBox.getPlaces();
+
+    if (places.length === 0) return;
+
+    //clear out all markers used in interation
+    // marker.forEach(function(m) {
+    //   m.setMap(null);
+    // });
+    // marker = [];
+
+    // create bounds object or coordinate boundaries of map
+    var bounds = new google.maps.LatLngBounds();
+
+    //iterate over places add marker for earch and adjust bounds of map
+    places.forEach(function(p) {
+      //check for geo attr or data for postion; if not
+      if (!p.geometry) return;
+
+      marker.push(
+        new google.maps.Marker({
+          map: map,
+          title: p.name,
+          position: p.geometry.location
+        })
+      );
+
+      //update bounds of map to take each place into account
+      //check if place had geometry view port geomerty ref https://developers.google.com/maps/documentation/javascript/geometry (if it preffered set to combination ref https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLngBounds)
+      if (p.geometry.viewport) bounds.union(p.geometry.viewport);
+      else bounds.extend(p.geometry.location);
+    });
+
+    //call fit bounds on map object and pass in bounds
+    map.fitBounds(bounds);
+  });
+}
     codeAddress();
 
     function codeAddress() {
@@ -173,18 +201,7 @@ $("form").submit(function(event) {
   searchBrewery();
 });
 
-$("#searchBtn").on("click", function() {
-  searchBrewery();
-});
-
-// $(document).on("click", ".cardResults", function() {
-//   var lat = $(this).attr("data-lat");
-//   var lon = $(this).attr("data-lon");
-//   console.log("lat", lat);
-//   console.log("lon", lon);
-// });
-
-//initMap("chicago");
+initMap();
 //init card
 //show card with imputs city state
 //drop for number of results
