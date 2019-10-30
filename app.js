@@ -1,5 +1,6 @@
 var city = "";
 var state = "";
+
 //initMap(city);
 
 let queryPatio = "";
@@ -31,7 +32,6 @@ function searchBrewery() {
 
   var queryUrl = `https://api.openbrewerydb.org/breweries?by_city=${city}&by_state=${state}${queryDog}${queryPatio}${queryFood}${queryTours}`;
 
-  console.log("quryURL" + queryUrl);
   $.ajax({
     url: queryUrl,
     method: "GET"
@@ -138,9 +138,24 @@ function initMap(city) {
       });
     }
   });
+
   marker.addListener("click", function() {
     infowindow.open(map, marker);
   });
+
+  function pinInMap(brewery) {
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ address: `${brewery.name}` }, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        var marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
+        });
+        marker.setMap(map);
+        console.log(brewery.name);
+      }
+    });
+  }
 }
 
 $("#startBtn").click(function() {
