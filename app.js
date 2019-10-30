@@ -43,10 +43,18 @@ function searchBrewery() {
   });
 }
 
+// get seletcted value
+function getSelectedValue() {
+  let selectedValue = $(".dropdown-item").val();
+  console.log("selected val", selectedValue);
+}
+
 function renderList(response) {
+  getSelectedValue();
+
   // get cream filling
 
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < 6; i++) {
     if (response[i].phone === "") {
       response[i].phone = "info not avaiable yet";
     }
@@ -83,7 +91,7 @@ function initMap(city) {
 
   var options = {
     center: /* { lat: 0, lng: 0 },*/ { lat: 41.8781, lng: -87.6298 },
-    zoom: 10
+    zoom: 12
   };
   //intialize id
   map = new google.maps.Map(document.getElementById("map"), options);
@@ -129,6 +137,7 @@ function initMap(city) {
     places.forEach(function(p) {
       //check for geo attr or data for postion; if not
       if (!p.geometry) return;
+      console.log("place", places);
 
       marker.push(
         new google.maps.Marker({
@@ -151,17 +160,52 @@ function initMap(city) {
   $(document).on("click", ".cardResults", function() {
     var lat = parseFloat($(this).attr("data-lat"));
     var lon = parseFloat($(this).attr("data-lon"));
+    var place = $(this).attr("data-name");
+
     console.log("lat", lat);
     console.log("lon", lon);
+    console.log("place", place);
 
-    marker = new google.maps.Marker({
-      map: map,
-      draggable: true,
-      position: { lat: lat, lng: lon }
-    });
-    console.log("marker", marker);
-    // To add the marker to the map, call setMap();
-    marker.setMap(map);
+    var icon = {
+      url: "./smbottle.png", // url
+      scaledSize: new google.maps.Size(13, 34), // scaled size
+      origin: new google.maps.Point(0, 0), // origin
+      anchor: new google.maps.Point(0, 0) // anchor
+    };
+
+    codeAddress();
+
+    function codeAddress() {
+      geocoder.geocode({ address: place }, function(results, status) {
+        if (status == "OK") {
+          map.setCenter(results[0].geometry.location);
+          var marker = new google.maps.Marker({
+            map: map,
+            draggable: false,
+            position: results[0].geometry.location,
+            icon: icon
+          });
+          console.log("result map", results[0]);
+          marker.setMap(map);
+        }
+      });
+    }
+    var icon = {
+      url: "./smbottle.png", // url
+      scaledSize: new google.maps.Size(13, 34), // scaled size
+      origin: new google.maps.Point(0, 0), // origin
+      anchor: new google.maps.Point(0, 0) // anchor
+    };
+
+    // marker = new google.maps.Marker({
+    //   map: map,
+    //   draggable: false,
+    //   position: { lat: lat, lng: lon },
+    //   icon: icon
+    // });
+    // console.log("marker", marker);
+    // // To add the marker to the map, call setMap();
+    // marker.setMap(map);
   });
 }
 
