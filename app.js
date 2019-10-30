@@ -1,6 +1,8 @@
 // google maps api key AIzaSyBZrGx2lk-aBzNw1Y5aR-f4DuzZP_a1v2g || key=AIzaSyBZrGx2lk-aBzNw1Y5aR-f4DuzZP_a1v2g
-var city = "chicago";
-var state = "illinois";
+
+var city = "";
+var state = "";
+
 //initMap(city);
 
 let queryPatio = "";
@@ -32,14 +34,10 @@ function searchBrewery() {
 
   var queryUrl = `https://api.openbrewerydb.org/breweries?by_city=${city}&by_state=${state}${queryDog}${queryPatio}${queryFood}${queryTours}`;
 
-  console.log("quryURL" + queryUrl);
   $.ajax({
     url: queryUrl,
     method: "GET"
   }).then(function(response) {
-
-    console.log("response", response);
-    renderList(response);
 
     initMap(city);
     renderList(response);
@@ -82,6 +80,8 @@ function renderList(response) {
     $("#resultBrew").prepend(brewDiv);
   }
 }
+
+
 
 function initMap(city) {
   var geocoder = new google.maps.Geocoder();
@@ -171,22 +171,20 @@ function initMap(city) {
 }
 
 function pinInMap(brewery) {
-  if (
-    (brewery.latitude || brewery.latitude == 0) &&
-    (brewery.longitude || brewery.longitude == 0)
-  ) {
-    var markerToCreate = new google.maps.Marker({
-      map: map,
-      draggable: true,
-      position: {
-        lat: parseFloat(brewery.latitude),
-        lng: parseFloat(brewery.longitude)
-      }
-    });
-    console.log("mark", parseFloat(brewery.latitude));
-    markerToCreate.setMap(map);
-  }
+  var geocoder = new google.maps.Geocoder();
+  geocoder.geocode( { 'address': `${brewery.name}`}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      var marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
+      });
+      marker.setMap(map);
+      console.log(brewery.name);
+    }
+  });
 }
+
+
 
 $("#startBtn").click(function() {
   $("html,body").animate(
