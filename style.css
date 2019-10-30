@@ -79,6 +79,14 @@ html {
 
 
  /* Add some padding inside the card container */
+ .cardResults{
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: "Lato", sans-serif;
+  /* width: 80%; */
+  padding: 3px 10px;
+  margin-bottom: 8px;
+}
 
 .cardStyle {
   margin-left: 10px;
@@ -91,10 +99,22 @@ html {
   padding: 2px 16px;
 }
 
+.container-header {
+  padding-left: 15px;
+  padding-top: 10px;
+}
+
 .iconStyle {
   text-align: center;
   margin-bottom: 10px;
   margin-top: 10px;
+}
+
+.inputHolder{
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 3px 10px;
+  margin-bottom: 8px;
 }
 
 
@@ -104,20 +124,18 @@ html {
   text-align: center;
   font-style: italic bold;
   font-family: 'Lato', sans-serif;
-  margin-top: 50px;
+  margin-top: 40px;
   margin-bottom: 30px;
 }
 
 .logo{
   color: #0B3c5d;
   font-family: 'Lato', sans-serif;
-
-
-  position: absolute;
+  /* position: absolute;
   transform: translate(-50%, -50%);
   z-index: 2;
   top: 5%;
-  left: 10%;
+  left: 10%; */
 }
 
 .p-text {
@@ -125,6 +143,7 @@ html {
   font-family: "Lato", sans-serif;
   color: #0B3c5d;
 }
+
 
 .searchBox {
   width: 100%;
@@ -140,7 +159,6 @@ html {
   text-align: center;
 }
 
-
 .secondary-bg-color{
   background-color: #FCCE05;
 
@@ -151,11 +169,6 @@ html {
   background-repeat: no-repeat;
   background-size: cover;
 }
-
-.small-text{
-  font-size: 5px;
-}
-
 
 .sub-heading{
   font-size: 20px;
@@ -170,7 +183,19 @@ html {
   color:gray;
   font-size: 15px;
   margin: 10px;
+  margin-bottom: 30px;
 }
+
+.third-bg-c{
+  width: 100%;
+  background-color: #0B3c5d;
+  font-family: 'Lato', sans-serif; 
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  padding:30px;
+}
+
 
 /* Portrait iPhone X */
 @media only screen 
@@ -178,9 +203,100 @@ html {
   and (max-device-width: 812px) 
   and (-webkit-min-device-pixel-ratio: 3)
   and (orientation: portrait) { 
+    
     .beerContainer {
       display: none;
     }
+
+    .bg-text {
+      font-size: 35px;
+      font-weight: bold;
+      left: 50%;
+
+    }
+
+    .bg-text-1 {
+      font-size: 2.5em;
+      font-weight: normal;
+      left: 50%;
+      text-align: center;
+      top: 45%;
+      width: 100%;
+    }
+
+    .btn {
+      font-weight: 600;
+    }
+
+    .card {
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+
+    .container-header {
+      padding-left: 0;
+      justify-content: center;
+    }
+
+    .logo {
+      font-size: 3.5em;
+      font-weight: bold;
+      margin-top: 5%;
+    }
+
+}
+
+/* extra small (iphone 5/SE) and small (iphone 6+, galaxy s5, pixel 2) */
+@media screen and (max-width: 768px) { 
+    
+    .beerContainer {
+      display: none;
+    }
+
+    .bg-text {
+      font-size: 1.5em;
+      font-weight: bold;
+      left: 50%;
+      top: 85%;
+    }
+
+    .bg-text-1 {
+      font-size: 2em;
+      font-weight: normal;
+      left: 50%;
+      text-align: center;
+      top: 45%;
+      width: 100%;
+    }
+
+    .btn {
+      font-weight: 600;
+    }
+
+    .card {
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+
+    .container-header {
+      padding-left: 0;
+      justify-content: center;
+    }
+
+    .logo {
+      font-size: 2.75em;
+      font-weight: bold;
+      margin-top: 5%;
+    }
+}
+
+
+/* medium devices (ipad)-edit */
+@media screen and (min-width: 481px) and (max-width: 960px) {
+}
+
+/* large devices-edit */
+@media screen and (min-width: 800px) {
 }
 
 
