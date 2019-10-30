@@ -1,6 +1,6 @@
 // google maps api key AIzaSyBZrGx2lk-aBzNw1Y5aR-f4DuzZP_a1v2g || key=AIzaSyBZrGx2lk-aBzNw1Y5aR-f4DuzZP_a1v2g
-var city = "chicago";
-var state = "illinois";
+var city = "";
+var state = "";
 //initMap(city);
 
 let queryPatio = "";
@@ -33,15 +33,11 @@ function searchBrewery() {
 
   var queryUrl = `https://api.openbrewerydb.org/breweries?by_city=${city}&by_state=${state}${queryDog}${queryPatio}${queryFood}${queryTours}`;
 
-  console.log("quryURL" + queryUrl);
   $.ajax({
     url: queryUrl,
     method: "GET"
   }).then(function(response) {
-
-    console.log("response", response);
-    renderList(response);
-
+    console.log(response);
     initMap(city);
     renderList(response);
   });
@@ -57,9 +53,12 @@ function renderList(response) {
       response[i].website_url = "no website";
     }
 
-    var lat = response[i].latitude;
-    var lon = response[i].longitude;
-    //locationArray.push(lat, lon);
+    //  <div>
+    //  ${response[i].phone}
+    //  </div>
+    //  <div>
+    //  ${response[i].website_url}
+    //  </div>
 
     var brewDiv = $(
       `<div class="cardResults no-touch pointer" data-name="${response[i].name}" data-lat="${response[i].latitude}" data-lon="${response[i].longitude}" id="result">
@@ -69,16 +68,12 @@ function renderList(response) {
         <div>
         ${response[i].street}
         </div>
-        <div>
-        ${response[i].phone}
-        </div>
-        <div>
-        ${response[i].website_url}
         </div>
       </div>`
     );
 
-    $("#resultBrew").prepend(brewDiv);
+    $("#resultBrew").append(brewDiv);
+    pinInMap(response[i]);
   }
 }
 
@@ -87,7 +82,7 @@ function initMap(city) {
 
   var options = {
     center: /* { lat: 0, lng: 0 },*/ { lat: 41.8781, lng: -87.6298 },
-    zoom: 10
+    zoom: 14
   };
   //intialize id
   map = new google.maps.Map(document.getElementById("map"), options);
@@ -141,7 +136,7 @@ function initMap(city) {
           position: p.geometry.location
         })
       );
-      console.log("marker", marker);
+
       //update bounds of map to take each place into account
       //check if place had geometry view port geomerty ref https://developers.google.com/maps/documentation/javascript/geometry (if it preffered set to combination ref https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLngBounds)
       if (p.geometry.viewport) bounds.union(p.geometry.viewport);
@@ -151,40 +146,55 @@ function initMap(city) {
     //call fit bounds on map object and pass in bounds
     map.fitBounds(bounds);
   });
+}
+
+function pinInMap(brewery) {
+  var geocoder = new google.maps.Geocoder();
+  geocoder.geocode({ address: `${brewery.name}` }, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      var marker = new google.maps.Marker({
+        map: map,
+        position: results[0].geometry.location
+      });
+      marker.setMap(map);
+      console.log(brewery.name);
+    }
+  });
 
   $(document).on("click", ".cardResults", function() {
     var lat = parseFloat($(this).attr("data-lat"));
     var lon = parseFloat($(this).attr("data-lon"));
+    var place = $(this).attr("data-name");
+
     console.log("lat", lat);
     console.log("lon", lon);
+    console.log("place", place);
 
-    marker = new google.maps.Marker({
-      map: map,
-      draggable: true,
-      position: { lat: lat, lng: lon }
-    });
-    console.log("marker", marker);
-    // To add the marker to the map, call setMap();
-    marker.setMap(map);
+    var icon = {
+      url: "./smbottle.png", // url
+      scaledSize: new google.maps.Size(13, 34), // scaled size
+      origin: new google.maps.Point(0, 0), // origin
+      anchor: new google.maps.Point(0, 0) // anchor
+    };
+
+    codeAddress();
+
+    function codeAddress() {
+      geocoder.geocode({ address: place }, function(results, status) {
+        if (status == "OK") {
+          map.setCenter(results[0].geometry.location);
+          var marker = new google.maps.Marker({
+            map: map,
+            draggable: false,
+            position: results[0].geometry.location,
+            icon: icon
+          });
+          console.log("result map", results[0]);
+          marker.setMap(map);
+        }
+      });
+    }
   });
-}
-
-function pinInMap(brewery) {
-  if (
-    (brewery.latitude || brewery.latitude == 0) &&
-    (brewery.longitude || brewery.longitude == 0)
-  ) {
-    var markerToCreate = new google.maps.Marker({
-      map: map,
-      draggable: true,
-      position: {
-        lat: parseFloat(brewery.latitude),
-        lng: parseFloat(brewery.longitude)
-      }
-    });
-    console.log("mark", parseFloat(brewery.latitude));
-    markerToCreate.setMap(map);
-  }
 }
 
 $("#startBtn").click(function() {
@@ -202,18 +212,7 @@ $("form").submit(function(event) {
   searchBrewery();
 });
 
-$("#searchBtn").on("click", function() {
-  searchBrewery();
-});
-
-// $(document).on("click", ".cardResults", function() {
-//   var lat = $(this).attr("data-lat");
-//   var lon = $(this).attr("data-lon");
-//   console.log("lat", lat);
-//   console.log("lon", lon);
-// });
-
-//initMap("chicago");
+initMap();
 //init card
 //show card with imputs city state
 //drop for number of results
