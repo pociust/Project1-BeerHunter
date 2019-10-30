@@ -10,6 +10,7 @@ let queryTours = "";
 let map = "";
 
 function searchBrewery() {
+  $("#mapContainer").removeClass("hide");
   city = $("#cityInput").val();
   state = $("#stateInput").val() || "";
 
@@ -61,22 +62,20 @@ function renderList(response) {
     //locationArray.push(lat, lon);
 
     var brewDiv = $(
-      `<div class="cardResults" data-name="${response[i].name}" data-lat="${response[i].latitude}" data-lon="${response[i].longitude}" id="result">
-    <h3>
+      `<div class="cardResults no-touch pointer" data-name="${response[i].name}" data-lat="${response[i].latitude}" data-lon="${response[i].longitude}" id="result">
+        <h3>
         ${response[i].name}
-    </h3>
-    <div>
+        </h3>
+        <div>
         ${response[i].street}
-    </div>
-    <div>
+        </div>
+        <div>
         ${response[i].phone}
-    </div>
-    <div>
+        </div>
+        <div>
         ${response[i].website_url}
-    </div>
-    <input type="checkbox">
-    </input>
-    </div>`
+        </div>
+      </div>`
     );
 
     $("#resultBrew").prepend(brewDiv);
