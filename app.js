@@ -20,7 +20,6 @@ function searchBrewery() {
 
   if ($("#dog").prop("checked")) {
     queryDog = "&by_tag=dog";
-    console.log("dog = checked");
   }
 
   if ($("#food").prop("checked")) {
@@ -37,7 +36,6 @@ function searchBrewery() {
     url: queryUrl,
     method: "GET"
   }).then(function(response) {
-    console.log(response);
     initMap(city);
     renderList(response);
     // pinInMap(response[i]);
@@ -70,9 +68,8 @@ function renderList(response) {
 
     pinInMap(response[i]);
     names.push(response[i].name);
-    console.log("names", names);
   }
-  // setTimeout(initPin(names), i * 10000);
+  //initPin();
 }
 
 function initMap(city) {
@@ -115,7 +112,7 @@ function initMap(city) {
             position: results[0].geometry.location,
             icon: icon
           });
-          console.log("result map", results[0]);
+
           marker.setMap(map);
           var contentString = $(
             '<div class="marker-info-win">' +
@@ -148,80 +145,84 @@ function initMap(city) {
     codeAddress();
   });
 }
-
+var geocoder = new google.maps.Geocoder();
 function initPin() {
-  for (i = 0; i < names.length; i++) {
-    console.log("loop name", names[i]);
-    var geocoder = new google.maps.Geocoder();
-    setTimeout(
-      geocoder.geocode({ address: names[i] }, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-          var marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location
-          });
+  for (var j = 0; j < 2; j++) {
+    if (j === 1) {
+      names = names.splice(9, 10);
+      console.log("*******names", names);
+    }
+    for (i = 0; i < names.length; i++) {
+      console.log("loop name", names[i]);
 
-          marker.setMap(map);
-          var contentString = $(
-            '<div class="marker-info-win">' +
-              '<span class="info-content">' +
-              `<h3 class="marker-heading"></h3>` +
-              "This is a new marker infoWindow" +
-              "</span>" +
-              "</div>"
-          );
+      setTimeout(
+        geocoder.geocode({ address: names[i] }, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            var marker = new google.maps.Marker({
+              map: map,
+              position: results[0].geometry.location
+            });
 
-          //Create an infoWindow
-          var infowindow = new google.maps.InfoWindow();
+            marker.setMap(map);
+            var contentString = $(
+              '<div class="marker-info-win">' +
+                '<span class="info-content">' +
+                `<h3 class="marker-heading"></h3>` +
+                "This is a new marker infoWindow" +
+                "</span>" +
+                "</div>"
+            );
 
-          //set the content of infoWindow
-          infowindow.setContent(contentString[0]);
+            //Create an infoWindow
+            var infowindow = new google.maps.InfoWindow();
 
-          //add click event listener to marker which will open infoWindow
-          google.maps.event.addListener(marker, "click", function() {
-            infowindow.open(map, marker); // click on marker opens info window
-          });
-        }
-      }),
-      200 * i
-    );
+            //set the content of infoWindow
+            infowindow.setContent(contentString[0]);
+
+            //add click event listener to marker which will open infoWindow
+            google.maps.event.addListener(marker, "click", function() {
+              infowindow.open(map, marker); // click on marker opens info window
+            });
+          }
+        }),
+        5000
+      );
+    }
   }
 }
 
 function pinInMap(brewery) {
   var geocoder = new google.maps.Geocoder();
-  setTimeout(
-    geocoder.geocode({ address: `${brewery.name}` }, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        var marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location
-        });
-        console.log("results", results);
-        marker.setMap(map);
-        var contentString = $(
-          '<div class="marker-info-win">' +
-            '<span class="info-content">' +
-            `<h3 class="marker-heading">${brewery.name}</h3>` +
-            `${brewery.street}` +
-            "</span>" +
-            "</div>"
-        );
 
-        //Create an infoWindow
-        var infowindow = new google.maps.InfoWindow();
+  geocoder.geocode({ address: `${brewery.name}` }, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      var marker = new google.maps.Marker({
+        map: map,
+        position: results[0].geometry.location
+      });
 
-        //set the content of infoWindow
-        infowindow.setContent(contentString[0]);
+      marker.setMap(map);
+      var contentString = $(
+        '<div class="marker-info-win">' +
+          '<span class="info-content">' +
+          `<h3 class="marker-heading">${brewery.name}</h3>` +
+          `${brewery.street}` +
+          "</span>" +
+          "</div>"
+      );
 
-        //add click event listener to marker which will open infoWindow
-        google.maps.event.addListener(marker, "click", function() {
-          infowindow.open(map, marker); // click on marker opens info window
-        });
-      }
-    }),
-    brewery * 1000
-  );
+      //Create an infoWindow
+      var infowindow = new google.maps.InfoWindow();
+
+      //set the content of infoWindow
+      infowindow.setContent(contentString[0]);
+
+      //add click event listener to marker which will open infoWindow
+      google.maps.event.addListener(marker, "click", function() {
+        infowindow.open(map, marker); // click on marker opens info window
+      });
+    }
+  });
 }
 
 $("#startBtn").click(function() {
