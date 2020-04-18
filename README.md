@@ -6,7 +6,7 @@ A search engine for local breweries.
 
 ## Motivation
 
-Connecting users with brew pubs in their area, whether traveling of local.
+Connecting users with brew pubs in their area, whether traveling or local.
 
 ## Build status
 
@@ -24,11 +24,11 @@ Landing:
 
 Search Parameter Options:
 
-![](searchParameters.PNG)
+![](images/searchParameters.PNG)
 
 Results Page:
 
-![](results.PNG)
+![](images/results.PNG)
 
 ## Tech/framework used
 
